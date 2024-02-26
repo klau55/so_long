@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/02/26 16:29:08 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:49:40 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,37 @@ void ft_hook(void* param)
 		image->instances[0].x += 5;
 }
 
-// -----------------------------------------------------------------------------
+typedef struct s_map
+{
+	int			name_length;
+	int			fd;
+	int			bytes_read;
+	const char	*filename;
+	char		**grid;
+	int			line_count;
+	int			line_length;
+	int			col_c;
+	int			pl_c;
+	int			ex_c;
+	int			col_col;
+	int			tile_w;
+	int			tile_l;
+	int			tile_sq;
+	int			pl_x;
+	int			pl_y;
+	int			ex_x;
+	int			ex_y;
+	int			moves;
+	int			check;
+	int			x;
+	int			y;
+	int			n;
+	int			wnd_w;
+	int			wnd_h;
+	mlx_t		*mlx;
+	t_img		*img;
+}	t_map;
+
 typedef struct s_img
 {
 	mlx_texture_t	*txt_free;
@@ -87,6 +117,7 @@ int32_t main(void)
 {
 	mlx_t* mlx;
 	t_img *img = NULL;
+	t_map *map = NULL;
 
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "KYPBA 123", true)))
@@ -97,6 +128,7 @@ int32_t main(void)
 	img->txt_pl = mlx_load_png("assets/monk.png");
 	printf("ass\n");
 	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 64, 64);
 	image = img->img_pl;
 	if (!(image = mlx_new_image(mlx, 64, 64)))
 	{
