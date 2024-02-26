@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/02/15 16:37:02 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:29:08 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 // Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
 // See README in the root project for more information.
 // -----------------------------------------------------------------------------
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,17 +68,36 @@ void ft_hook(void* param)
 }
 
 // -----------------------------------------------------------------------------
-
+typedef struct s_img
+{
+	mlx_texture_t	*txt_free;
+	mlx_texture_t	*txt_obs;
+	mlx_texture_t	*txt_c;
+	mlx_texture_t	*txt_e;
+	mlx_texture_t	*txt_e_o;
+	mlx_texture_t	*txt_pl;
+	mlx_image_t		*img_free;
+	mlx_image_t		*img_obs;
+	mlx_image_t		*img_c;
+	mlx_image_t		*img_e;
+	mlx_image_t		*img_e_o;
+	mlx_image_t		*img_pl;
+}	t_img;
 int32_t main(void)
 {
 	mlx_t* mlx;
+	t_img *img = NULL;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "KYPBA 123", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
+	img->txt_pl = mlx_load_png("assets/monk.png");
+	printf("ass\n");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	image = img->img_pl;
 	if (!(image = mlx_new_image(mlx, 64, 64)))
 	{
 		mlx_close_window(mlx);
