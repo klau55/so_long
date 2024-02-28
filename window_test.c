@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/02/26 16:49:40 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:51:13 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../include/MLX42/MLX42.h"
+#include <MLX42/MLX42.h>
 
 #define WIDTH 1024
-#define HEIGHT 1024
+#define HEIGHT 768
 
 static mlx_image_t* image;
+static mlx_texture_t* texture;
 
 // -----------------------------------------------------------------------------
 
@@ -67,83 +68,39 @@ void ft_hook(void* param)
 		image->instances[0].x += 5;
 }
 
-typedef struct s_map
-{
-	int			name_length;
-	int			fd;
-	int			bytes_read;
-	const char	*filename;
-	char		**grid;
-	int			line_count;
-	int			line_length;
-	int			col_c;
-	int			pl_c;
-	int			ex_c;
-	int			col_col;
-	int			tile_w;
-	int			tile_l;
-	int			tile_sq;
-	int			pl_x;
-	int			pl_y;
-	int			ex_x;
-	int			ex_y;
-	int			moves;
-	int			check;
-	int			x;
-	int			y;
-	int			n;
-	int			wnd_w;
-	int			wnd_h;
-	mlx_t		*mlx;
-	t_img		*img;
-}	t_map;
 
-typedef struct s_img
-{
-	mlx_texture_t	*txt_free;
-	mlx_texture_t	*txt_obs;
-	mlx_texture_t	*txt_c;
-	mlx_texture_t	*txt_e;
-	mlx_texture_t	*txt_e_o;
-	mlx_texture_t	*txt_pl;
-	mlx_image_t		*img_free;
-	mlx_image_t		*img_obs;
-	mlx_image_t		*img_c;
-	mlx_image_t		*img_e;
-	mlx_image_t		*img_e_o;
-	mlx_image_t		*img_pl;
-}	t_img;
 int32_t main(void)
 {
 	mlx_t* mlx;
-	t_img *img = NULL;
-	t_map *map = NULL;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "KYPBA 123", true)))
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	img->txt_pl = mlx_load_png("assets/monk.png");
-	printf("ass\n");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 64, 64);
-	image = img->img_pl;
-	if (!(image = mlx_new_image(mlx, 64, 64)))
+	texture = mlx_load_png("assets/monky.png");
+	if (!texture)
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	image = mlx_texture_to_image(mlx, texture);
+	if (!image)
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
 	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
+	mlx_resize_image(image, 64, 128);
+	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
 	mlx_loop_hook(mlx, ft_hook, mlx);
 
 	mlx_loop(mlx);
