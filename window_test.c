@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/02/28 19:13:48 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:05:01 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,20 @@
 #define WIDTH 1024
 #define HEIGHT 768
 
-
+void	move_hook(mlx_key_data_t keydata, void *param);
 
 // -----------------------------------------------------------------------------
 
 typedef struct s_img
 {
 	mlx_texture_t	*txt_pl;
-	mlx_image_t		*img_pl;
 	mlx_texture_t	*txt_free;
+	mlx_texture_t	*txt_exit;
+	mlx_texture_t	*txt_wall;
+	mlx_image_t		*img_pl;
 	mlx_image_t		*img_free;
+	mlx_image_t		*img_exit;
+	mlx_image_t		*img_wall;
 }	t_img;
 
 typedef struct s_map
@@ -76,20 +80,20 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void ft_hook(void* param)
+void	move_hook(mlx_key_data_t keydata, void *param)
 {
 	mlx_t* mlx = param;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		img->img_pl->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		img->img_pl->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		img->img_pl->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		img->img_pl->instances[0].x += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_UP) && (keydata.action == MLX_PRESS))
+		img->img_pl->instances[0].y -= map->tile_sq;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) && (keydata.action == MLX_PRESS))
+		img->img_pl->instances[0].y += map->tile_sq;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) && (keydata.action == MLX_PRESS))
+		img->img_pl->instances[0].x -= map->tile_sq;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT) && (keydata.action == MLX_PRESS))
+		img->img_pl->instances[0].x += map->tile_sq;
 }
 
 int	render_player(mlx_t *mlx, t_img *img)
@@ -109,7 +113,7 @@ int	render_player(mlx_t *mlx, t_img *img)
 		return (EXIT_FAILURE);
 	}
 	mlx_resize_image(img->img_pl, 32, 64);
-	if (mlx_image_to_window(mlx, img->img_pl, 0, 0) == -1)
+	if (mlx_image_to_window(mlx, img->img_pl, 75, 64) == -1)
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
@@ -149,12 +153,45 @@ int	render_map(mlx_t *mlx)
 		map->tile_sq = map->tile_l;
 	else
 		map->tile_sq = map->tile_w;
+	printf("tile_sq: %d\n", map->tile_sq);
+	printf("tile_l: %d\n", map->tile_l);
+	printf("tile_w: %d\n", map->tile_w);
+	map->tile_sq = 64;
 	while (map->y < map->line_count)
 	{
 		while (map->x < map->line_length)
 		{
 			mlx_image_to_window(mlx, img->img_free, \
 			map->x * map->tile_sq, map->y * map->tile_sq);
+			if (map->x == map->line_length - 3 && map->y == map->line_count - 2)
+			{
+				img->txt_exit = mlx_load_png("./assets/exit.png");
+				img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
+				if (!img->img_exit)
+				{
+					mlx_close_window(mlx);
+					puts(mlx_strerror(mlx_errno));
+					return (EXIT_FAILURE);
+				}
+				mlx_resize_image(img->img_exit, 64, 64);
+				mlx_image_to_window(mlx, img->img_exit, \
+				map->x * map->tile_sq, map->y * map->tile_sq);
+			}
+			if (map->x == map->line_length - 1 || map->x == 0 || \
+			map->y == 0 || map->y == map->line_count -1)
+			{
+				img->txt_wall = mlx_load_png("./assets/wall.png");
+				img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
+				if (!img->img_wall)
+				{
+					mlx_close_window(mlx);
+					puts(mlx_strerror(mlx_errno));
+					return (EXIT_FAILURE);
+				}
+				mlx_resize_image(img->img_wall, 64, 64);
+				mlx_image_to_window(mlx, img->img_wall, \
+				map->x * map->tile_sq, map->y * map->tile_sq);
+			}
 			map->x++;
 		}
 		map->y++;
@@ -178,7 +215,7 @@ int32_t	main(void)
 	}
 	render_map(mlx);
 	render_player(mlx, img);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_key_hook(mlx, move_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
