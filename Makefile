@@ -4,7 +4,7 @@ LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
-SRCS	:= window_test.c
+SRCS	:=  get_next_line.c get_next_line_utils.c window_test.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
