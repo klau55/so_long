@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/04 13:23:08 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:59:23 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,49 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 {
 	if (map->grid[map->pl_y][map->pl_x] == 'C')
 	{
-		mlx_delete_image(mlx, img->img_col);
+		mlx_delete_image(mlx, img->img_pl);
+		mlx_image_to_window(mlx, img->img_free, \
+			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+		mlx_resize_image(img->img_pl, 32, 64);
+		mlx_image_to_window(mlx, img->img_pl, \
+			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 		puts("collectible found!\n");
-		map->col_col = 1;
+		map->col_col++;
+		map->grid[map->pl_y][map->pl_x] = '0';
 	}
 	if (map->grid[map->pl_y][map->pl_x] == 'E')
 	{
-		if (map->col_col == 1)
+		if (map->col_col == map->col_c)
 		{
-			puts("success!");
+			printf("Yay! books collected, total movements %d\n", map->moves);
 			mlx_delete_image(mlx, img->img_pl);
+			exit(0);
 		}
 		else
 			puts("collect all books before exit\n");
+	}
+}
+
+void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
+{
+	if (c == 'a')
+	{
+		mlx_delete_image(mlx, img->img_pl);
+		img->txt_pl = mlx_load_png("assets/monky_left.png");
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+		mlx_resize_image(img->img_pl, 32, 64);
+		mlx_image_to_window(mlx, img->img_pl, \
+			(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	}
+	if (c == 'd')
+	{
+		mlx_delete_image(mlx, img->img_pl);
+		img->txt_pl = mlx_load_png("assets/monky_right.png");
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+		mlx_resize_image(img->img_pl, 32, 64);
+		mlx_image_to_window(mlx, img->img_pl, \
+			(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
 	}
 }
 
@@ -114,11 +144,13 @@ void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)
 {
 	if ((c == 'a') && (map->grid[map->pl_y][map->pl_x - 1] != '1'))
 	{
+		player_rotate(mlx, map, img, c);
 		img->img_pl->instances[0].x -= map->tile_sq;
 		map->pl_x--;
 	}
 	else if ((c == 'd') && (map->grid[map->pl_y][map->pl_x + 1] != '1'))
 	{
+		player_rotate(mlx, map, img, c);
 		img->img_pl->instances[0].x += map->tile_sq;
 		map->pl_x++;
 	}
@@ -156,7 +188,7 @@ void	move_hook(mlx_key_data_t keydata, void *param)
 
 int	render_player(mlx_t *mlx, t_img *img)
 {
-	img->txt_pl = mlx_load_png("assets/monky.png");
+	img->txt_pl = mlx_load_png("assets/monky_right.png");
 	if (!img->txt_pl)
 	{
 		mlx_close_window(mlx);
@@ -326,7 +358,7 @@ void	mapping(t_map *map)
 		map->fd = close(map->fd);
 		exit(1);
 	}
-	printf("line_count: %d\n", map->line_count);
+	//printf("line_count: %d\n", map->line_count);
 	/////
 	close(map->fd);
 	map->fd = open("map.ber", O_RDONLY);
