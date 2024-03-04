@@ -6,14 +6,9 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/01 16:18:32 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:23:08 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// -----------------------------------------------------------------------------
-// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
-// See README in the root project for more information.
-// -----------------------------------------------------------------------------
 
 
 #include <stdio.h>
@@ -95,46 +90,68 @@ void	initialize_map_values(t_map *map)
 	map->check = 1;
 }
 
-void	player_moving(t_map *map, t_img *img, char c)
+void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
+{
+	if (map->grid[map->pl_y][map->pl_x] == 'C')
+	{
+		mlx_delete_image(mlx, img->img_col);
+		puts("collectible found!\n");
+		map->col_col = 1;
+	}
+	if (map->grid[map->pl_y][map->pl_x] == 'E')
+	{
+		if (map->col_col == 1)
+		{
+			puts("success!");
+			mlx_delete_image(mlx, img->img_pl);
+		}
+		else
+			puts("collect all books before exit\n");
+	}
+}
+
+void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)
 {
 	if ((c == 'a') && (map->grid[map->pl_y][map->pl_x - 1] != '1'))
 	{
 		img->img_pl->instances[0].x -= map->tile_sq;
 		map->pl_x--;
 	}
-	if ((c == 'd') && (map->grid[map->pl_y][map->pl_x + 1] != '1'))
+	else if ((c == 'd') && (map->grid[map->pl_y][map->pl_x + 1] != '1'))
 	{
 		img->img_pl->instances[0].x += map->tile_sq;
 		map->pl_x++;
 	}
-	if ((c == 'w') && (map->grid[map->pl_y - 1][map->pl_x] != '1'))
+	else if ((c == 'w') && (map->grid[map->pl_y - 1][map->pl_x] != '1'))
 	{
 		img->img_pl->instances[0].y -= map->tile_sq;
 		map->pl_y--;
 	}
-	if ((c == 's') && (map->grid[map->pl_y + 1][map->pl_x] != '1'))
+	else if ((c == 's') && (map->grid[map->pl_y + 1][map->pl_x] != '1'))
 	{
 		img->img_pl->instances[0].y += map->tile_sq;
 		map->pl_y++;
 	}
+	completion_checker(mlx, map, img);
 	map->moves++;
 	printf("Number of movements: %d\n", map->moves);
 }
 
 void	move_hook(mlx_key_data_t keydata, void *param)
 {
-	mlx_t* mlx = param;
+	mlx_t	*mlx;
 
+	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP) && (keydata.action == MLX_PRESS))
-		player_moving(map, img, 'w');
+		player_moving(mlx, map, img, 'w');
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) && (keydata.action == MLX_PRESS))
-		player_moving(map, img, 's');
+		player_moving(mlx, map, img, 's');
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) && (keydata.action == MLX_PRESS))
-		player_moving(map, img, 'a');
+		player_moving(mlx, map, img, 'a');
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT) && (keydata.action == MLX_PRESS))
-		player_moving(map, img, 'd');
+		player_moving(mlx, map, img, 'd');
 }
 
 int	render_player(mlx_t *mlx, t_img *img)
@@ -154,7 +171,7 @@ int	render_player(mlx_t *mlx, t_img *img)
 		return (EXIT_FAILURE);
 	}
 	mlx_resize_image(img->img_pl, 32, 64);
-	if (mlx_image_to_window(mlx, img->img_pl, map->pl_x * map->tile_sq, \
+	if (mlx_image_to_window(mlx, img->img_pl, (map->pl_x * map->tile_sq) + 15, \
 	map->pl_y * map->tile_sq) == -1)
 	{
 		mlx_close_window(mlx);
@@ -224,7 +241,7 @@ int	render_map(mlx_t *mlx)
 			}
 			if (map->grid[map->y][map->x] == 'C')
 			{
-				img->txt_col = mlx_load_png("./assets/collectible.png");
+				img->txt_col = mlx_load_png("./assets/book.png");
 				img->img_col = mlx_texture_to_image(mlx, img->txt_col);
 				if (!img->img_col)
 				{
@@ -232,7 +249,7 @@ int	render_map(mlx_t *mlx)
 					puts(mlx_strerror(mlx_errno));
 					return (EXIT_FAILURE);
 				}
-				mlx_resize_image(img->img_col, 32, 32);
+				mlx_resize_image(img->img_col, 32, 50);
 				mlx_image_to_window(mlx, img->img_col, \
 				map->x * map->tile_sq, map->y * map->tile_sq);
 			}
