@@ -1,9 +1,57 @@
 #include "so_long.h"
 
+void	collectible_animation(mlx_t *mlx, t_map *map, t_img *img)
+{
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim1.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	usleep(1000000);
+	/*
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim2.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	usleep(1000000);
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim3.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	usleep(1000000);
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim4.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	usleep(1000000);
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim5.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+	usleep(1000000); */
+	mlx_delete_image(mlx, img->img_pl);
+	img->txt_pl = mlx_load_png("assets/anim2.png");
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_pl, 32, 64);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
+
+}
+
 void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 {
 	if (map->grid[map->pl_y][map->pl_x] == 'C')
 	{
+		collectible_animation(mlx, map, img);
 		mlx_delete_image(mlx, img->img_pl);
 		mlx_image_to_window(mlx, img->img_free, \
 			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
