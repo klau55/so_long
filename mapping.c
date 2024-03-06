@@ -109,9 +109,9 @@ int	render_map(mlx_t *mlx, t_map *map, t_img *img)
 					puts(mlx_strerror(mlx_errno));
 					return (EXIT_FAILURE);
 				}
-				mlx_resize_image(img->img_col, 32, 50);
+				mlx_resize_image(img->img_col, 25, 30);
 				mlx_image_to_window(mlx, img->img_col, \
-				map->x * map->tile_sq, map->y * map->tile_sq);
+				map->x * map->tile_sq + 20, map->y * map->tile_sq + 20);
 			}
 			if (map->grid[map->y][map->x] == 'P')
 			{
@@ -206,5 +206,8 @@ void	mapping(t_map *map)
 	map->line_length = strlen(map->grid[0]);
 	close(map->fd);
 	// check all lines are the same length
+	// check amount of players, collectibles and exits
+	// check if map is rectangular
+	// check if map is surrounded by walls
 	return ;
 }

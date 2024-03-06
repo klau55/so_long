@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/04 16:43:58 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:09:48 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ int32_t	main(void)
 	map = (t_map *)malloc(sizeof(t_map));
 	map->filename = "./maps/map.ber";
 	map->img = img;
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "solo ng", true)))
+	mlx = mlx_init(WIDTH, HEIGHT, "solo ng", true);
+	if (!mlx)
 	{
 		puts(mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
 	map->mlx = mlx;
+	//map_validation(map);
 	initialize_map_values(map);
 	mapping(map);
 	render_map(mlx, map, img);

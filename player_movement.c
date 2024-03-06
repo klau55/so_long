@@ -8,43 +8,6 @@ void	collectible_animation(mlx_t *mlx, t_map *map, t_img *img)
 	mlx_resize_image(img->img_pl, 32, 64);
 	mlx_image_to_window(mlx, img->img_pl, \
 		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-	usleep(1000000);
-	/*
-	mlx_delete_image(mlx, img->img_pl);
-	img->txt_pl = mlx_load_png("assets/anim2.png");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 32, 64);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-	usleep(1000000);
-	mlx_delete_image(mlx, img->img_pl);
-	img->txt_pl = mlx_load_png("assets/anim3.png");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 32, 64);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-	usleep(1000000);
-	mlx_delete_image(mlx, img->img_pl);
-	img->txt_pl = mlx_load_png("assets/anim4.png");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 32, 64);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-	usleep(1000000);
-	mlx_delete_image(mlx, img->img_pl);
-	img->txt_pl = mlx_load_png("assets/anim5.png");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 32, 64);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-	usleep(1000000); */
-	mlx_delete_image(mlx, img->img_pl);
-	img->txt_pl = mlx_load_png("assets/anim2.png");
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, 32, 64);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
-
 }
 
 void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
@@ -87,7 +50,7 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 		mlx_image_to_window(mlx, img->img_pl, \
 			(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
 	}
-	if (c == 'd')
+	if (c == 'd' || c == 'w' || c == 's')
 	{
 		mlx_delete_image(mlx, img->img_pl);
 		img->txt_pl = mlx_load_png("assets/monky_right.png");
@@ -96,6 +59,8 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 		mlx_image_to_window(mlx, img->img_pl, \
 			(map->pl_x * map->tile_sq) + 15, map->pl_y * map->tile_sq);
 	}
+	map->moves++;
+	printf("Number of movements: %d\n", map->moves);
 }
 
 void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)
@@ -114,17 +79,17 @@ void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)
 	}
 	else if ((c == 'w') && (map->grid[map->pl_y - 1][map->pl_x] != '1'))
 	{
+		player_rotate(mlx, map, img, c);
 		img->img_pl->instances[0].y -= map->tile_sq;
 		map->pl_y--;
 	}
 	else if ((c == 's') && (map->grid[map->pl_y + 1][map->pl_x] != '1'))
 	{
+		player_rotate(mlx, map, img, c);
 		img->img_pl->instances[0].y += map->tile_sq;
 		map->pl_y++;
 	}
 	completion_checker(mlx, map, img);
-	map->moves++;
-	printf("Number of movements: %d\n", map->moves);
 }
 
 void	move_hook(mlx_key_data_t keydata, void *param)
