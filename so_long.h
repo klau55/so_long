@@ -71,6 +71,6 @@ void	check_map(t_map *map);
 int		count_lines(int fd, t_map *map);
 void	mapping(t_map *map);
 void	map_validation(t_map *map);
-int32_t	main(void);
+int32_t	main(int argc, char **argv);
 
 #endif

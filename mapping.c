@@ -204,10 +204,65 @@ void	mapping(t_map *map)
 		i++;
 	}
 	map->line_length = strlen(map->grid[0]);
-	close(map->fd);
+	i = 0;
 	// check all lines are the same length
+	while (i < map->line_count)
+	{
+		printf("strlen(map->grid[i]): %lu\n", strlen(map->grid[i]));
+		printf("map->line_length: %d\n", map->line_length);
+		if ((int)strlen(map->grid[i]) != map->line_length)
+		{
+			if (i + 1 == map->line_count)
+				break ;
+			puts("Error\n");
+			exit(1);
+		}
+		i++;
+	}
 	// check amount of players, collectibles and exits
+	if (map->col_c == 0 || map->pl_c != 1 || map->ex_c != 1)
+	{
+		puts("Erroramt1\n");
+		exit(1);
+	}
+	if (map->col_c < 1 || map->line_count < 3 || map->line_length < 3)
+	{
+		puts("Erroramt2\n");
+		exit(1);
+	}
 	// check if map is rectangular
+	i = 0;
+	if (map->line_length % map->line_count != 0)
+	{
+		puts("Error_rekt\n");
+		exit(1);
+	}
+
+
 	// check if map is surrounded by walls
+	i = 0;
+	while (i < map->line_length - 1)
+	{
+		if (map->grid[0][i] != '1' || map->grid[map->line_count - 1][i] != '1')
+		{
+			puts("Errorprelast\n");
+			exit(1);
+		}
+		i++;
+	}
+	i = 0;
+	while (i < map->line_count - 1)
+	{
+		if (map->grid[i][0] != '1' || map->grid[i][map->line_length - 2] != '1')
+		{
+			puts("Errorlast\n");
+			exit(1);
+		}
+		i++;
+	}
+
+
+	close(map->fd);
+
 	return ;
 }

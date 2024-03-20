@@ -6,13 +6,13 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/06 18:09:48 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:09:13 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int32_t	main(void)
+int32_t	main(int argc, char **argv)
 {
 	mlx_t			*mlx;
 	t_img			*img;
@@ -20,7 +20,12 @@ int32_t	main(void)
 
 	img = (t_img *)malloc(sizeof(t_img));
 	map = (t_map *)malloc(sizeof(t_map));
-	map->filename = "./maps/map.ber";
+	if (argc != 2)
+	{
+		puts("Error\nInvalid number of arguments");
+		return (EXIT_FAILURE);
+	}
+	map->filename = argv[1];
 	map->img = img;
 	mlx = mlx_init(WIDTH, HEIGHT, "solo ng", true);
 	if (!mlx)
