@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/19 18:09:13 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:35:15 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int32_t	main(int argc, char **argv)
 	printf("sasadasd\n");
 	render_player(mlx, img, map);
 	mlx_key_hook(mlx, move_hook, map);
+	// TODO: hook for window size change
+	mlx_resize_hook(mlx, resize_hook, map);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

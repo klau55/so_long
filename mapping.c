@@ -55,7 +55,7 @@ int	render_map(mlx_t *mlx, t_map *map, t_img *img)
 	mlx_resize_image(img->img_free, 64, 64);
 	map->x = 0;
 	map->y = 0;
-	// sadasdasdasdasd
+	// RESIZE
 	map->tile_l = map->wnd_w / (map->line_length - 1);
 	map->tile_w = map->wnd_h / map->line_count;
 	if (map->tile_l <= map->tile_w)
@@ -230,15 +230,6 @@ void	mapping(t_map *map)
 		puts("Erroramt2\n");
 		exit(1);
 	}
-	// check if map is rectangular
-	i = 0;
-	/*
-	if (map->line_length % map->line_count != 0)
-	{
-		puts("Error_rekt\n");
-		exit(1);
-	}
-	*/
 	// check path
 	if (!route_validation(map))
 	{

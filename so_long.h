@@ -78,4 +78,8 @@ void	parse_way(char **grid_cpy, size_t i, size_t j);
 void	line_validation(t_map *map, char **grid_cpy);
 void	malloc_error(t_map *map, char **grid, int check);
 void	free_grid(t_map *map, char **grid);
+
+void	resize_hook(int32_t width, int32_t height, void *param);
+void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map);
+
 #endif
