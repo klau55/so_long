@@ -232,13 +232,19 @@ void	mapping(t_map *map)
 	}
 	// check if map is rectangular
 	i = 0;
+	/*
 	if (map->line_length % map->line_count != 0)
 	{
 		puts("Error_rekt\n");
 		exit(1);
 	}
-
-
+	*/
+	// check path
+	if (!route_validation(map))
+	{
+		puts("Error! No possible route\n");
+		exit(1);
+	}
 	// check if map is surrounded by walls
 	i = 0;
 	while (i < map->line_length - 1)

@@ -73,4 +73,9 @@ void	mapping(t_map *map);
 void	map_validation(t_map *map);
 int32_t	main(int argc, char **argv);
 
+int		route_validation(t_map *map);
+void	parse_way(char **grid_cpy, size_t i, size_t j);
+void	line_validation(t_map *map, char **grid_cpy);
+void	malloc_error(t_map *map, char **grid, int check);
+void	free_grid(t_map *map, char **grid);
 #endif
