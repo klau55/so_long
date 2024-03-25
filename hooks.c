@@ -16,7 +16,7 @@ void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map)
 	mlx_resize_image(img->img_pl, map->tile_sq / 2, 64);
 	mlx_resize_image(img->img_exit, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_wall, map->tile_sq, map->tile_sq);
-	mlx_resize_image(img->img_col, 25, 30);
+	mlx_resize_image(img->img_col, map->tile_sq / 2.5, map->tile_sq / 2);
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)
@@ -24,6 +24,7 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	t_map	*map;
 
 	map = (t_map *)param;
+	printf("map->tile_sq: %d\n", map->tile_sq);
 	map->wnd_w = width;
 	map->wnd_h = height;
 	resize_handle_images(map->mlx, map->img, map);

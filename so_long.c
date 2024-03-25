@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/21 16:35:15 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:44:03 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int32_t	main(int argc, char **argv)
 	map->mlx = mlx;
 	//map_validation(map);
 	initialize_map_values(map);
+	printf("SRAKA\n");
+	//preload_images(mlx, img, map);
 	mapping(map);
 	render_map(mlx, map, img);
-	printf("sasadasd\n");
-	render_player(mlx, img, map);
 	mlx_key_hook(mlx, move_hook, map);
 	// TODO: hook for window size change
 	mlx_resize_hook(mlx, resize_hook, map);

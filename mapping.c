@@ -14,110 +14,99 @@ void	initialize_map_values(t_map *map)
 	map->check = 1;
 }
 
-int	render_player(mlx_t *mlx, t_img *img, t_map *map)
+void	map_sizing(t_map *map)
 {
-	img->txt_pl = mlx_load_png("assets/monky_right.png");
-	if (!img->txt_pl)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	if (!img->img_pl)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	mlx_resize_image(img->img_pl, 32, 64);
-	if (mlx_image_to_window(mlx, img->img_pl, (map->pl_x * map->tile_sq) + 15, \
-	map->pl_y * map->tile_sq) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	return (0);
-}
-
-int	render_map(mlx_t *mlx, t_map *map, t_img *img)
-{
-
-	img->txt_free = mlx_load_png("./assets/floor_tile.png");
-	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
-	if (!img->img_free)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	mlx_resize_image(img->img_free, 64, 64);
-	map->x = 0;
-	map->y = 0;
-	// RESIZE
 	map->tile_l = map->wnd_w / (map->line_length - 1);
 	map->tile_w = map->wnd_h / map->line_count;
 	if (map->tile_l <= map->tile_w)
 		map->tile_sq = map->tile_l;
 	else
 		map->tile_sq = map->tile_w;
-	map->tile_sq = 64;
-	// bad solution
-	map->line_length--;
+	printf(">>>>map->tile_sq: %d\n", map->tile_sq);
+}
+
+int	render_player(mlx_t *mlx, t_img *img, t_map *map)
+{
+	mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+	mlx_image_to_window(mlx, img->img_pl, \
+		(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
+	return (0);
+}
+void	render_player_and_exit(mlx_t *mlx, t_map *map, t_img *img)
+{
+	if (map->grid[map->y][map->x] == 'P')
+	{
+		if (!map->pl_x && !map->pl_y)
+		{
+			map->pl_x = map->x;
+			map->pl_y = map->y;
+		}
+		render_player(mlx, img, map);
+	}
+	if (map->grid[map->y][map->x] == 'E')
+	{
+		mlx_image_to_window(mlx, img->img_exit, \
+		map->x * map->tile_sq, map->y * map->tile_sq);
+	}
+}
+
+void	preload_images(mlx_t *mlx, t_img *img, t_map *map)
+{
+	printf("SRAKA 2");
+	map_sizing(map);
+	img->txt_free = mlx_load_png("./assets/floor_tile.png");
+	img->txt_exit = mlx_load_png("./assets/exit.png");
+	img->txt_wall = mlx_load_png("./assets/wall.png");
+	img->txt_col = mlx_load_png("./assets/book.png");
+	img->txt_pl = mlx_load_png("assets/monky_right.png");
+	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
+	img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
+	img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
+	img->img_col = mlx_texture_to_image(mlx, img->txt_col);
+	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
+	mlx_resize_image(img->img_free, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_exit, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_wall, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_col, (map->tile_sq / 2.5), map->tile_sq / 2);
+	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
+}
+
+int	render_map(mlx_t *mlx, t_map *map, t_img *img)
+{
+	// TODO: line length must be -1 
+	// TODO: 
+	map->x = 0;
+	map->y = 0;
+	map_sizing(map);
+	if (!img->img_pl)
+		preload_images(mlx, img, map);
 	while (map->y < map->line_count)
 	{
-		while (map->x < map->line_length)
+		if (!img->img_free || !img->img_exit || !img->img_wall || !img->img_col)
 		{
+			printf("5555\n");
+			mlx_close_window(mlx);
+			puts(mlx_strerror(mlx_errno));
+			return (EXIT_FAILURE);
+		}
+		while (map->x < map->line_length - 1)
+		{
+
 			mlx_image_to_window(mlx, img->img_free, \
 			map->x * map->tile_sq, map->y * map->tile_sq);
-			if (map->grid[map->y][map->x] == 'E')
-			{
-				img->txt_exit = mlx_load_png("./assets/exit.png");
-				img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
-				if (!img->img_exit)
-				{
-					mlx_close_window(mlx);
-					puts(mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-				mlx_resize_image(img->img_exit, 64, 64);
-				mlx_image_to_window(mlx, img->img_exit, \
-				map->x * map->tile_sq, map->y * map->tile_sq);
-			}
+
 			if (map->grid[map->y][map->x] == '1')
 			{
-				img->txt_wall = mlx_load_png("./assets/wall.png");
-				img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
-				if (!img->img_wall)
-				{
-					mlx_close_window(mlx);
-					puts(mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-				mlx_resize_image(img->img_wall, 64, 64);
 				mlx_image_to_window(mlx, img->img_wall, \
 				map->x * map->tile_sq, map->y * map->tile_sq);
 			}
-			if (map->grid[map->y][map->x] == 'C')
+			else if (map->grid[map->y][map->x] == 'C')
 			{
-				img->txt_col = mlx_load_png("./assets/book.png");
-				img->img_col = mlx_texture_to_image(mlx, img->txt_col);
-				if (!img->img_col)
-				{
-					mlx_close_window(mlx);
-					puts(mlx_strerror(mlx_errno));
-					return (EXIT_FAILURE);
-				}
-				mlx_resize_image(img->img_col, 25, 30);
 				mlx_image_to_window(mlx, img->img_col, \
-				map->x * map->tile_sq + 20, map->y * map->tile_sq + 20);
+				map->x * map->tile_sq, map->y * map->tile_sq);
 			}
-			if (map->grid[map->y][map->x] == 'P')
-			{
-				map->pl_x = map->x;
-				map->pl_y = map->y;
-			}
+			else
+				render_player_and_exit(mlx, map, img);
 			map->x++;
 		}
 		map->y++;

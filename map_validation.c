@@ -17,8 +17,6 @@ void	map_validation(t_map *map)
 		map->line_count++;
 		if (map->line_length == 0)
 			map->line_length = strlen(line);
-		printf("line_length: %d\n", map->line_length);
-		printf("strlen(line): %lu\n", strlen(line));
 		if ((unsigned long)map->line_length != strlen(line))
 		{
 			puts("Error\nMap is not rectangular");

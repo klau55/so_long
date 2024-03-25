@@ -10,7 +10,7 @@
 # include <unistd.h>
 # include <string.h>
 
-# define WIDTH 1024
+# define WIDTH 1366
 # define HEIGHT 768
 
 typedef struct s_img
@@ -81,5 +81,7 @@ void	free_grid(t_map *map, char **grid);
 
 void	resize_hook(int32_t width, int32_t height, void *param);
 void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map);
+
+void	preload_images(mlx_t *mlx, t_img *img, t_map *map);
 
 #endif
