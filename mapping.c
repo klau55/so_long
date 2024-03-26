@@ -27,7 +27,7 @@ void	map_sizing(t_map *map)
 
 int	render_player(mlx_t *mlx, t_img *img, t_map *map)
 {
-	mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 	mlx_image_to_window(mlx, img->img_pl, \
 		(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 	return (0);

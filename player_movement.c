@@ -5,7 +5,7 @@ void	collectible_animation(mlx_t *mlx, t_map *map, t_img *img)
 	mlx_delete_image(mlx, img->img_pl);
 	img->txt_pl = mlx_load_png("assets/anim1.png");
 	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-	mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 	mlx_image_to_window(mlx, img->img_pl, \
 		(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 }
@@ -19,7 +19,7 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 		mlx_image_to_window(mlx, img->img_free, \
 			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-		mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+		mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 		mlx_image_to_window(mlx, img->img_pl, \
 			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 		puts("collectible found!\n");
@@ -46,7 +46,7 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 		mlx_delete_image(mlx, img->img_pl);
 		img->txt_pl = mlx_load_png("assets/monky_left.png");
 		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-		mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+		mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 		mlx_image_to_window(mlx, img->img_pl, \
 			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 	}
@@ -55,7 +55,7 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 		mlx_delete_image(mlx, img->img_pl);
 		img->txt_pl = mlx_load_png("assets/monky_right.png");
 		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-		mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
+		mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 		mlx_image_to_window(mlx, img->img_pl, \
 			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 	}
