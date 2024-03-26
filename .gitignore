@@ -2,3 +2,5 @@ window_test.o
 Game
 *.o
 so_long.o
+DS_Store
+.gitignore

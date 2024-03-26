@@ -68,7 +68,7 @@ void	move_hook(mlx_key_data_t keydata, void *param);
 int		render_player(mlx_t *mlx, t_img *img, t_map *map);
 int		render_map(mlx_t *mlx, t_map *map, t_img *img);
 void	check_map(t_map *map);
-int		count_lines(int fd, t_map *map);
+int		count_lines(int fd, t_map *map, int bytes_read);
 void	mapping(t_map *map);
 void	map_validation(t_map *map);
 int32_t	main(int argc, char **argv);
@@ -83,5 +83,16 @@ void	resize_hook(int32_t width, int32_t height, void *param);
 void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map);
 
 void	preload_images(mlx_t *mlx, t_img *img, t_map *map);
+
+int		open_map_file(t_map *map);
+void	allocate_memory_for_grid(t_map *map);
+void	populate_grid(t_map *map);
+void	check_line_lengths(t_map *map);
+void	check_game_elements(t_map *map);
+void	check_map_surrounded_by_walls(t_map *map);
+void	exit_with_error(t_map *map, char *message);
+
+void	map_sizing(t_map *map);
+
 
 #endif
