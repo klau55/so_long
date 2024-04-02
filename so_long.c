@@ -6,11 +6,33 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/25 19:44:03 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:25:01 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	initialization(mlx_t *mlx, t_map *map, t_img *img)
+{
+	if (!mlx)
+	{
+		puts(mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	initialize_map_values(map);
+	mapping(map);
+	render_map(mlx, map, img);
+	return (0);
+}
+
+int	end(t_map *map, t_img *img, mlx_t *mlx)
+{
+	free_grid(map, map->grid);
+	free(map);
+	free(img);
+	mlx_terminate(mlx);
+	return (1);
+}
 
 int32_t	main(int argc, char **argv)
 {
@@ -23,27 +45,17 @@ int32_t	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		puts("Error\nInvalid number of arguments");
-		return (EXIT_FAILURE);
+		return (end(map, img, NULL));
 	}
 	map->filename = argv[1];
 	map->img = img;
 	mlx = mlx_init(WIDTH, HEIGHT, "solo ng", true);
-	if (!mlx)
-	{
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
 	map->mlx = mlx;
-	//map_validation(map);
-	initialize_map_values(map);
-	printf("SRAKA\n");
-	//preload_images(mlx, img, map);
-	mapping(map);
-	render_map(mlx, map, img);
+	if (initialization(mlx, map, img) == EXIT_FAILURE)
+		return (end(map, img, mlx));
 	mlx_key_hook(mlx, move_hook, map);
-	// TODO: hook for window size change
 	mlx_resize_hook(mlx, resize_hook, map);
 	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	end(map, img, mlx);
 	return (EXIT_SUCCESS);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   route_validation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 18:38:21 by nkarpilo          #+#    #+#             */
+/*   Updated: 2024/04/02 18:52:44 by nkarpilo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	parse_way(char **grid_cpy, size_t i, size_t j)
@@ -52,7 +64,6 @@ void	line_validation(t_map *map, char **grid_cpy)
 		i = 0;
 	}
 }
-
 
 int	route_validation(t_map *map)
 {

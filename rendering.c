@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/26 17:05:24 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:52:27 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	renders(t_map *map, t_img *img, mlx_t *mlx)
 {
 	mlx_image_to_window(mlx, img->img_free, \
 	map->x * map->tile_sq, map->y * map->tile_sq);
-
 	if (map->grid[map->y][map->x] == '1')
 	{
 		mlx_image_to_window(mlx, img->img_wall, \
