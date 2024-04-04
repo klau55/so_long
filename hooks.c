@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:05 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/26 17:04:06 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:54:17 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	t_map	*map;
 
 	map = (t_map *)param;
-	printf("map->tile_sq: %d\n", map->tile_sq);
 	map->wnd_w = width;
 	map->wnd_h = height;
 	resize_handle_images(map->mlx, map->img, map);

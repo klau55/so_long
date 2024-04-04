@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:18 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/26 17:04:19 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:56:56 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 	{
 		if (map->col_col == map->col_c)
 		{
-			printf("Yay! books collected, total movements %d\n", map->moves);
-			mlx_delete_image(mlx, img->img_pl);
-			exit(0);
+			puts("Yay! books collected and exit found!\n");
+			mlx_terminate(mlx);
+			free_grid(map, map->grid);
+			exit(EXIT_SUCCESS);
 		}
 		else
 			puts("collect all books before exit\n");
@@ -72,7 +73,9 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 	}
 	map->moves++;
-	printf("Number of movements: %d\n", map->moves);
+	puts("Number of movements: ");
+	putnbr(map->moves);
+	puts("\n");
 }
 
 void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)

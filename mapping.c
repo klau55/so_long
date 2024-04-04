@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:57 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/02 18:52:03 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:54:57 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	map_sizing(t_map *map)
 		map->tile_sq = map->tile_l;
 	else
 		map->tile_sq = map->tile_w;
-	printf(">>>>map->tile_sq: %d\n", map->tile_sq);
 }
 
 void	check_map(t_map *map)
@@ -68,7 +67,7 @@ int	count_lines(int fd, t_map *map, int bytes_read)
 		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
 			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
 		{
-			printf("Error\nInvalid characters: %c\n", buffer[0]);
+			puts("Error\nInvalid characters");
 			exit(EXIT_FAILURE);
 		}
 	}

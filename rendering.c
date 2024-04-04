@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/02 18:52:27 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:22:54 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	render_player_and_exit(mlx_t *mlx, t_map *map, t_img *img)
 }
 
 void	preload_images(mlx_t *mlx, t_img *img, t_map *map)
-{
-	printf("SRAKA 2");
+{;
 	map_sizing(map);
 	img->txt_free = mlx_load_png("./assets/floor_tile.png");
 	img->txt_exit = mlx_load_png("./assets/exit.png");
