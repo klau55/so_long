@@ -338,3 +338,5 @@ int32_t main(void)
 }
 
 ```
+	img->txt_pl_left = mlx_load_png("assets/monky_left.png");
+	img->txt_pl_collect = mlx_load_png("assets/anim1.png");

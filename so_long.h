@@ -20,7 +20,11 @@ typedef struct s_img
 	mlx_texture_t	*txt_exit;
 	mlx_texture_t	*txt_wall;
 	mlx_texture_t	*txt_col;
+	mlx_texture_t	*txt_pl_left;
+	mlx_texture_t	*txt_pl_collect;
 	mlx_image_t		*img_pl;
+	mlx_image_t		*img_pl_left;
+	mlx_image_t		*img_pl_collect;
 	mlx_image_t		*img_free;
 	mlx_image_t		*img_exit;
 	mlx_image_t		*img_wall;

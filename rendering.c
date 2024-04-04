@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/04 18:22:54 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:45:15 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ void	render_player_and_exit(mlx_t *mlx, t_map *map, t_img *img)
 }
 
 void	preload_images(mlx_t *mlx, t_img *img, t_map *map)
-{;
+{
 	map_sizing(map);
 	img->txt_free = mlx_load_png("./assets/floor_tile.png");
 	img->txt_exit = mlx_load_png("./assets/exit.png");
 	img->txt_wall = mlx_load_png("./assets/wall.png");
 	img->txt_col = mlx_load_png("./assets/book.png");
 	img->txt_pl = mlx_load_png("assets/monky_right.png");
+	img->txt_pl_left = mlx_load_png("assets/monky_left.png");
+	img->txt_pl_collect = mlx_load_png("assets/anim1.png");
 	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
 	img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
 	img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
