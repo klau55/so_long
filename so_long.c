@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:51:53 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:12:00 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int32_t	main(int argc, char **argv)
 	}
 	map->filename = argv[1];
 	map->img = img;
-	mlx = mlx_init(WIDTH, HEIGHT, "solo ng", true);
+	mlx = mlx_init(WIDTH, HEIGHT, "SO LONG", true);
 	map->mlx = mlx;
 	if (initialization(mlx, map, img) == EXIT_FAILURE)
 		return (end(map, img, mlx));

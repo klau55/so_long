@@ -4,6 +4,6 @@ so_long.o
 DS_Store
 .gitignore
 .vscode/launch.json
-.gitignore
 .vscode/tasks.json
 .vscode/settings.json
+libft/libft.a

@@ -12,7 +12,7 @@
 # include "libft/libft.h"
 
 # define WIDTH 1366
-# define HEIGHT 768
+# define HEIGHT 736
 
 typedef struct s_img
 {
@@ -59,6 +59,7 @@ typedef struct s_map
 	int			n;
 	int			wnd_w;
 	int			wnd_h;
+	int			pl_pos;
 	mlx_t		*mlx;
 	t_img		*img;
 }	t_map;
@@ -69,7 +70,7 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img);
 void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c);
 void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c);
 void	move_hook(mlx_key_data_t keydata, void *param);
-int		render_player(mlx_t *mlx, t_img *img, t_map *map);
+void	render_player(mlx_t *mlx, t_img *img, t_map *map);
 int		render_map(mlx_t *mlx, t_map *map, t_img *img);
 void	check_map(t_map *map);
 int		count_lines(int fd, t_map *map, int bytes_read);

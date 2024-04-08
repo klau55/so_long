@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:57 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:26:21 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:10:18 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	initialize_map_values(t_map *map)
 	map->col_col = 0;
 	map->n = 0;
 	map->check = 1;
+	map->pl_pos = 0;
 }
 
 void	map_sizing(t_map *map)

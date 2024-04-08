@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:05 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:25:41 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:43:47 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@ void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map)
 	mlx_delete_image(mlx, img->img_wall);
 	mlx_delete_image(mlx, img->img_col);
 	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 	img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
 	img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
 	img->img_col = mlx_texture_to_image(mlx, img->txt_col);
+	if (map->pl_pos == 1)
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_left);
+	else if (map->pl_pos == 2)
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_collect);
+	else
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 	mlx_resize_image(img->img_free, map->tile_sq, map->tile_sq);
-	mlx_resize_image(img->img_pl, map->tile_sq / 2, 64);
+	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 	mlx_resize_image(img->img_exit, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_wall, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_col, map->tile_sq / 2.5, map->tile_sq / 2);

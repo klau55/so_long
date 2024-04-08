@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:18 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:24:56 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:05:16 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	collectible_animation(mlx_t *mlx, t_map *map, t_img *img)
 {
-	mlx_delete_image(mlx, img->img_pl);
-	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_collect);
-	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
-	mlx_image_to_window(mlx, img->img_pl, \
-		(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
+	map->pl_pos = 2;
+	render_player(mlx, img, map);
 }
 
 void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
@@ -27,6 +24,7 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 	{
 		mlx_image_to_window(mlx, img->img_free, \
 			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
+		mlx_delete_image(mlx, img->img_pl);
 		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 		collectible_animation(mlx, map, img);
 		ft_printf("collectible found!\n");
@@ -52,19 +50,13 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 {
 	if (c == 'a')
 	{
-		mlx_delete_image(mlx, img->img_pl);
-		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_left);
-		mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
-		mlx_image_to_window(mlx, img->img_pl, \
-			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
+		map->pl_pos = 1;
+		render_player(mlx, img, map);
 	}
 	if (c == 'd' || c == 'w' || c == 's')
 	{
-		mlx_delete_image(mlx, img->img_pl);
-		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
-		mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
-		mlx_image_to_window(mlx, img->img_pl, \
-			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
+		map->pl_pos = 0;
+		render_player(mlx, img, map);
 	}
 	map->moves++;
 	ft_printf("Number of movements: %d\n", map->moves);

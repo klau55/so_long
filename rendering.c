@@ -6,18 +6,24 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:27 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:02:17 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	render_player(mlx_t *mlx, t_img *img, t_map *map)
+void	render_player(mlx_t *mlx, t_img *img, t_map *map)
 {
+	mlx_delete_image(mlx, img->img_pl);
+	if (map->pl_pos == 1)
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_left);
+	else if (map->pl_pos == 2)
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl_collect);
+	else
+		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 	mlx_image_to_window(mlx, img->img_pl, \
 		(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
-	return (0);
 }
 
 void	render_player_and_exit(mlx_t *mlx, t_map *map, t_img *img)
