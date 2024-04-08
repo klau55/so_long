@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/10/31 20:28:53 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/11/06 18:39:42 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+size_t	ft_strlcpy(char *dst, const char *src, size_t n)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
+	if (n <= 0)
+		return (ft_strlen(src));
 	i = 0;
-	while (i < map->line_count)
+	j = 0;
+	while (src[i] != '\0')
 	{
-		free(grid[i]);
-		grid[i] = NULL;
+		if (n && (i < (n - 1)))
+		{
+			dst[i] = src[i];
+			j++;
+		}
 		i++;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	dst[j] = '\0';
+	return (i);
 }

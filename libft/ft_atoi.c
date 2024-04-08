@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/10/31 20:34:52 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/11/20 15:03:11 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+int	ft_atoi(const char *str)
 {
 	int	i;
+	int	num;
+	int	neg;
 
 	i = 0;
-	while (i < map->line_count)
+	num = 0;
+	neg = 1;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\f' \
+		|| str[i] == '\t' || str[i] == '\v' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		free(grid[i]);
-		grid[i] = NULL;
+		if (str[i] == '-')
+			neg = -neg;
 		i++;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	while (str[i] != '\0')
+	{
+		if (ft_isdigit(str[i]))
+			num = num * 10 + (str[i] - '0');
+		else
+			break ;
+		i++;
+	}
+	return (num * neg);
 }

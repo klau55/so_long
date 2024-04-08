@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:38:21 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/02 18:52:44 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:08:10 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	route_validation(t_map *map)
 	i = 0;
 	while (i < map->line_count)
 	{
-		grid_cpy[i] = strdup(map->grid[i]);
+		grid_cpy[i] = ft_strdup(map->grid[i]);
 		i++;
 	}
 	line_validation(map, grid_cpy);
 	i = 0;
 	while (i < map->line_count)
 	{
-		if (strchr(grid_cpy[i], 'E') || strchr(grid_cpy[i], 'C'))
+		if (ft_strchr(grid_cpy[i], 'E') || ft_strchr(grid_cpy[i], 'C'))
 		{
 			free_grid(map, grid_cpy);
 			return (0);

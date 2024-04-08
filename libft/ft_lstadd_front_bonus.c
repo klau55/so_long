@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/11/06 17:37:44 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/11/08 15:50:52 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = 0;
-	while (i < map->line_count)
+	if (new && lst)
 	{
-		free(grid[i]);
-		grid[i] = NULL;
-		i++;
+		new->next = *lst;
+		*lst = new;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
 }

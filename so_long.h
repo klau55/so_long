@@ -9,6 +9,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <string.h>
+# include "libft/libft.h"
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -63,7 +64,6 @@ typedef struct s_map
 }	t_map;
 
 void	move_hook(mlx_key_data_t keydata, void *param);
-char	*get_next_line(int fd);
 void	initialize_map_values(t_map *map);
 void	completion_checker(mlx_t *mlx, t_map *map, t_img *img);
 void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c);
@@ -95,7 +95,6 @@ void	check_line_lengths(t_map *map);
 void	check_game_elements(t_map *map);
 void	check_map_surrounded_by_walls(t_map *map);
 void	exit_with_error(t_map *map, char *message);
-
 void	map_sizing(t_map *map);
 
 

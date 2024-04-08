@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/10/31 20:27:51 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/10/31 20:28:24 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
-
-	i = 0;
-	while (i < map->line_count)
+	while (n > 0 && (*s1 || *s2))
 	{
-		free(grid[i]);
-		grid[i] = NULL;
-		i++;
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		n--;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:57 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/04 18:54:57 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:26:21 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_map(t_map *map)
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
 	{
-		puts("Error\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 	map->bytes_read = read(map->fd, NULL, 0);
@@ -67,7 +67,7 @@ int	count_lines(int fd, t_map *map, int bytes_read)
 		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
 			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
 		{
-			puts("Error\nInvalid characters");
+			ft_printf("Error\nInvalid characters");
 			exit(EXIT_FAILURE);
 		}
 	}

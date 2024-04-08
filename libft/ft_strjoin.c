@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/11/01 15:53:13 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/11/06 18:39:36 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	i;
+	char	*res;
+	int		len1;
+	int		len2;
+	int		lentotal;
 
-	i = 0;
-	while (i < map->line_count)
-	{
-		free(grid[i]);
-		grid[i] = NULL;
-		i++;
-	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	if (!(s1) || !(s2))
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	lentotal = len1 + len2 + 1;
+	res = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!(res))
+		return (NULL);
+	ft_strlcpy(res, s1, lentotal);
+	ft_strlcat(res, s2, lentotal);
+	return (res);
 }

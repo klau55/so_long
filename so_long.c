@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/02 19:25:01 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:51:53 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	initialization(mlx_t *mlx, t_map *map, t_img *img)
 {
 	if (!mlx)
 	{
-		puts(mlx_strerror(mlx_errno));
+		ft_printf(mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
 	initialize_map_values(map);

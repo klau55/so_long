@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_hex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/11/20 15:08:21 by nkarpilo          #+#    #+#             */
+/*   Updated: 2024/04/05 20:25:53 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../libft.h"
 
-void	free_grid(t_map *map, char **grid)
+int	ft_print_hex(unsigned long n, const char format, int total)
 {
-	int	i;
+	const char	*base;
+	int			error;
 
-	i = 0;
-	while (i < map->line_count)
-	{
-		free(grid[i]);
-		grid[i] = NULL;
-		i++;
-	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	if (format == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	if (n >= 16)
+		total = ft_print_hex(n / 16, format, total);
+	if (total < 0)
+		return (-1);
+	error = write (1, &base[n % 16], 1);
+	if (error < 0)
+		return (-1);
+	return (total + 1);
 }

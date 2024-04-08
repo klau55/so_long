@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:48:56 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/02 18:49:23 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:05:58 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	populate_grid(t_map *map)
 		map->grid[i] = get_next_line(map->fd);
 		i++;
 	}
-	map->line_length = strlen(map->grid[0]);
+	map->line_length = ft_strlen(map->grid[0]);
 	i = 0;
 	while (i < map->line_count)
 	{
-		if ((int)strlen(map->grid[i]) != map->line_length)
+		if ((int)ft_strlen(map->grid[i]) != map->line_length)
 		{
 			if (i + 1 == map->line_count)
 				break ;
-			exit_with_error(map, "Error\n");
+			exit_with_error(map, "Error, map not rectangular\n");
 		}
 		i++;
 	}
@@ -52,9 +52,9 @@ void	populate_grid(t_map *map)
 void	check_game_elements(t_map *map)
 {
 	if (map->col_c == 0 || map->pl_c != 1 || map->ex_c != 1)
-		exit_with_error(map, "Erroramt1\n");
+		exit_with_error(map, "Error, check map elements\n");
 	if (map->col_c < 1 || map->line_count < 3 || map->line_length < 3)
-		exit_with_error(map, "Erroramt2\n");
+		exit_with_error(map, "Error, no collectible or map too shmoll\n");
 }
 
 void	check_map_surrounded_by_walls(t_map *map)
@@ -65,22 +65,23 @@ void	check_map_surrounded_by_walls(t_map *map)
 	while (i < map->line_length - 1)
 	{
 		if (map->grid[0][i] != '1' || map->grid[map->line_count - 1][i] != '1')
-			exit_with_error(map, "Errorprelast\n");
+			exit_with_error(map, "Error, check wall mapping\n");
 		i++;
 	}
 	i = 0;
 	while (i < map->line_count - 1)
 	{
 		if (map->grid[i][0] != '1' || map->grid[i][map->line_length - 2] != '1')
-			exit_with_error(map, "Errorlast\n");
+			exit_with_error(map, "Error, check wall mapping\n");
 		i++;
 	}
 }
 
 void	exit_with_error(t_map *map, char *message)
 {
-	puts(message);
+	ft_printf(message);
+	mlx_terminate(map->mlx);
 	if (map->grid)
 		free_grid(map, map->grid);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

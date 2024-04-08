@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:02 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/03/26 17:04:03 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:07:50 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,15 @@ void	map_validation(t_map *map)
 
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1)
-	{
-		puts("Error\nMap file not found");
-		exit(EXIT_FAILURE);
-	}
+		exit_with_error(map, "Error\nMap file not found");
 	line = get_next_line(fd);
 	while (line > 0)
 	{
 		map->line_count++;
 		if (map->line_length == 0)
-			map->line_length = strlen(line);
-		if ((unsigned long)map->line_length != strlen(line))
-		{
-			puts("Error\nMap is not rectangular");
-			exit(EXIT_FAILURE);
-		}
+			map->line_length = ft_strlen(line);
+		if ((unsigned long)map->line_length != ft_strlen(line))
+			exit_with_error(map, "Error\nMap is not rectangular");
 		free(line);
 		line = get_next_line(fd);
 	}

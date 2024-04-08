@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/04 19:45:15 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:45:27 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	render_map(mlx_t *mlx, t_map *map, t_img *img)
 		if (!img->img_free || !img->img_exit || !img->img_wall || !img->img_col)
 		{
 			mlx_close_window(mlx);
-			puts(mlx_strerror(mlx_errno));
+			ft_printf(mlx_strerror(mlx_errno));
 			return (EXIT_FAILURE);
 		}
 		while (map->x < map->line_length - 1)

@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/10/31 20:40:19 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/11/06 18:39:30 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	free_grid(t_map *map, char **grid)
+char	*ft_strdup(const char *s)
 {
-	int	i;
+	char	*dest;
+	char	*ptr;
+	int		length;
 
-	i = 0;
-	while (i < map->line_count)
+	length = 0;
+	while (s[length])
+		length++;
+	dest = malloc(length + 1);
+	if (dest == 0)
+		return (0);
+	ptr = dest;
+	while (*s != '\0')
 	{
-		free(grid[i]);
-		grid[i] = NULL;
-		i++;
+		*dest = *s;
+		dest++;
+		s++;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
+	*dest = '\0';
+	return (ptr);
 }

@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:04:23 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 17:45:32 by nkarpilo         ###   ########.fr       */
+/*   Created: 2023/10/29 13:35:41 by nkarpilo          #+#    #+#             */
+/*   Updated: 2023/10/31 20:06:21 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "so_long.h"
-
-void	free_grid(t_map *map, char **grid)
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
+	char	*c;
+	size_t	i;
 
+	c = s;
 	i = 0;
-	while (i < map->line_count)
+	while (i < n)
 	{
-		free(grid[i]);
-		grid[i] = NULL;
+		c[i] = '\0';
 		i++;
 	}
-	free(grid);
-	grid = NULL;
-}
-
-void	malloc_error(t_map *map, char **grid, int check)
-{
-	if (check == 1)
-		free_grid(map, grid);
-	ft_printf("Error\nMalloc error\n");
-	exit(1);
 }

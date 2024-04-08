@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:18 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/04 19:47:42 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:24:56 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 		img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 		collectible_animation(mlx, map, img);
-		puts("collectible found!\n");
+		ft_printf("collectible found!\n");
 		map->col_col++;
 		map->grid[map->pl_y][map->pl_x] = '0';
 	}
@@ -37,13 +37,14 @@ void	completion_checker(mlx_t *mlx, t_map *map, t_img *img)
 	{
 		if (map->col_col == map->col_c)
 		{
-			puts("Yay! books collected and exit found!\n");
+			ft_printf("Yay! books collected and exited!\
+			 Total moves: %d\n", map->moves);
 			mlx_terminate(mlx);
 			free_grid(map, map->grid);
 			exit(EXIT_SUCCESS);
 		}
 		else
-			puts("collect all books before exit\n");
+			ft_printf("collect all books before exit\n");
 	}
 }
 
@@ -66,9 +67,7 @@ void	player_rotate(mlx_t *mlx, t_map *map, t_img *img, char c)
 			(map->pl_x * map->tile_sq), map->pl_y * map->tile_sq);
 	}
 	map->moves++;
-	puts("Number of movements: ");
-//	ftputnbr(map->moves);
-	puts("\n");
+	ft_printf("Number of movements: %d\n", map->moves);
 }
 
 void	player_moving(mlx_t *mlx, t_map *map, t_img *img, char c)
@@ -107,8 +106,10 @@ void	move_hook(mlx_key_data_t keydata, void *param)
 	map = param;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 	{
+		mlx_terminate(map->mlx);
 		free_grid(map, map->grid);
 		mlx_close_window(map->mlx);
+		exit(EXIT_FAILURE);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_UP) && keydata.action == MLX_PRESS)
 		player_moving(map->mlx, map, map->img, 'w');
