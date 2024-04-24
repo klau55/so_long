@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 19:12:00 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:03:43 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int	initialization(mlx_t *mlx, t_map *map, t_img *img)
 	if (!mlx)
 	{
 		ft_printf(mlx_strerror(mlx_errno));
+		return (EXIT_FAILURE);
+	}
+	map->name_length = ft_strlen(map->filename);
+	if (map->filename == NULL || \
+	ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
+	{
+		ft_printf("Error\n Check map entry\n");
 		return (EXIT_FAILURE);
 	}
 	initialize_map_values(map);

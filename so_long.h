@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 19:18:59 by nkarpilo          #+#    #+#             */
+/*   Updated: 2024/04/22 15:30:20 by nkarpilo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -79,7 +91,7 @@ void	map_validation(t_map *map);
 int32_t	main(int argc, char **argv);
 
 int		route_validation(t_map *map);
-void	parse_way(char **grid_cpy, size_t i, size_t j);
+void	parse_way(char **grid_cpy, size_t i, size_t j, t_map *map);
 void	line_validation(t_map *map, char **grid_cpy);
 void	malloc_error(t_map *map, char **grid, int check);
 void	free_grid(t_map *map, char **grid);
@@ -97,6 +109,5 @@ void	check_game_elements(t_map *map);
 void	check_map_surrounded_by_walls(t_map *map);
 void	exit_with_error(t_map *map, char *message);
 void	map_sizing(t_map *map);
-
 
 #endif

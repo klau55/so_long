@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:48:56 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:05:58 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:29:15 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ void	check_map_surrounded_by_walls(t_map *map)
 
 void	exit_with_error(t_map *map, char *message)
 {
-	ft_printf(message);
 	mlx_terminate(map->mlx);
+	mlx_close_window(map->mlx);
+	ft_printf(message);
 	if (map->grid)
 		free_grid(map, map->grid);
 	exit(EXIT_FAILURE);

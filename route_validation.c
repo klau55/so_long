@@ -6,31 +6,31 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:38:21 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:08:10 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:14:47 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	parse_way(char **grid_cpy, size_t i, size_t j)
+void	parse_way(char **grid_cpy, size_t i, size_t j, t_map *map)
 {
-	if (grid_cpy[i + 1][j] == '0' || grid_cpy[i + 1][j] == 'C'\
-	|| grid_cpy[i + 1][j] == 'E')
+	if ((int)i + 1 < map->line_count && (grid_cpy[i + 1][j] == '0'\
+	|| grid_cpy[i + 1][j] == 'C' || grid_cpy[i + 1][j] == 'E'))
 	{
 		grid_cpy[i + 1][j] = 'x';
 	}
-	if (grid_cpy[i - 1][j] == '0' || grid_cpy[i - 1][j] == 'C'\
-	|| grid_cpy[i - 1][j] == 'E')
+	if (i > 0 && (grid_cpy[i - 1][j] == '0' || \
+	grid_cpy[i - 1][j] == 'C' || grid_cpy[i - 1][j] == 'E'))
 	{
 		grid_cpy[i - 1][j] = 'x';
 	}
-	if (grid_cpy[i][j + 1] == '0' || grid_cpy[i][j + 1] == 'C'\
-	|| grid_cpy[i][j + 1] == 'E')
+	if ((int)j + 1 < map->line_length && (grid_cpy[i][j + 1] == '0' || \
+	grid_cpy[i][j + 1] == 'C' || grid_cpy[i][j + 1] == 'E'))
 	{
 		grid_cpy[i][j + 1] = 'x';
 	}
-	if (grid_cpy[i][j - 1] == '0' || grid_cpy[i][j - 1] == 'C'\
-	|| grid_cpy[i][j - 1] == 'E')
+	if (j > 0 && (grid_cpy[i][j - 1] == '0' || \
+	grid_cpy[i][j - 1] == 'C' || grid_cpy[i][j - 1] == 'E'))
 	{
 		grid_cpy[i][j - 1] = 'x';
 	}
@@ -54,7 +54,7 @@ void	line_validation(t_map *map, char **grid_cpy)
 			{
 				if (grid_cpy[i][j] == 'P' || grid_cpy[i][j] == 'x')
 				{
-					parse_way(grid_cpy, i, j);
+					parse_way(grid_cpy, i, j, map);
 					map->check = 1;
 				}
 				j++;

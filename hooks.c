@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:05 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:43:47 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:45:21 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map)
 	mlx_resize_image(img->img_pl, map->tile_sq / 2, map->tile_sq);
 	mlx_resize_image(img->img_exit, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_wall, map->tile_sq, map->tile_sq);
-	mlx_resize_image(img->img_col, map->tile_sq / 2.5, map->tile_sq / 2);
+	mlx_resize_image(img->img_col, map->tile_sq / 2, map->tile_sq / 2);
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)
