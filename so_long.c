@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/24 19:03:43 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:14:01 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	end(t_map *map, t_img *img, mlx_t *mlx)
 	free_grid(map, map->grid);
 	free(map);
 	free(img);
-	mlx_terminate(mlx);
+	if (mlx)
+		mlx_terminate(mlx);
 	return (1);
 }
 
@@ -60,8 +61,9 @@ int32_t	main(int argc, char **argv)
 	map->mlx = mlx;
 	if (initialization(mlx, map, img) == EXIT_FAILURE)
 		return (end(map, img, mlx));
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_key_hook(mlx, move_hook, map);
-	mlx_resize_hook(mlx, resize_hook, map);
+	//mlx_resize_hook(mlx, resize_hook, map);
 	mlx_loop(mlx);
 	end(map, img, mlx);
 	return (EXIT_SUCCESS);
