@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/25 18:14:01 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:59:54 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,18 @@ int32_t	main(int argc, char **argv)
 	}
 	map->filename = argv[1];
 	map->img = img;
-	mlx = mlx_init(WIDTH, HEIGHT, "SO LONG", true);
+	map_validation(map);
+	ft_printf("map->line_count: %d\n", map->line_count);
+	ft_printf("map->line_length: %d\n", map->line_length);
+	// CHECK LINE COUNT ARGUMENT
+	// ??????????????????????????
+	mlx = mlx_init(TILE_SIZE * (map->line_length - 1) \
+	, TILE_SIZE * map->line_count, "SO LONG", true);
 	map->mlx = mlx;
 	if (initialization(mlx, map, img) == EXIT_FAILURE)
 		return (end(map, img, mlx));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_key_hook(mlx, move_hook, map);
-	//mlx_resize_hook(mlx, resize_hook, map);
 	mlx_loop(mlx);
 	end(map, img, mlx);
 	return (EXIT_SUCCESS);

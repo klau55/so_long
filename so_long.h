@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:18:59 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/22 15:30:20 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:20:34 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define WIDTH 1366
 # define HEIGHT 736
+# define TILE_SIZE 64
 
 typedef struct s_img
 {
@@ -96,15 +97,10 @@ void	line_validation(t_map *map, char **grid_cpy);
 void	malloc_error(t_map *map, char **grid, int check);
 void	free_grid(t_map *map, char **grid);
 
-void	resize_hook(int32_t width, int32_t height, void *param);
-void	resize_handle_images(mlx_t *mlx, t_img *img, t_map *map);
-
 void	preload_images(mlx_t *mlx, t_img *img, t_map *map);
 
 int		open_map_file(t_map *map);
-void	allocate_memory_for_grid(t_map *map);
 void	populate_grid(t_map *map);
-void	check_line_lengths(t_map *map);
 void	check_game_elements(t_map *map);
 void	check_map_surrounded_by_walls(t_map *map);
 void	exit_with_error(t_map *map, char *message);

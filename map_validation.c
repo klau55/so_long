@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:02 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/08 18:07:50 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:58:20 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	map_validation(t_map *map)
 		map->line_count++;
 		if (map->line_length == 0)
 			map->line_length = ft_strlen(line);
-		if ((unsigned long)map->line_length != ft_strlen(line))
-			exit_with_error(map, "Error\nMap is not rectangular");
 		free(line);
 		line = get_next_line(fd);
 	}

@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:57 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/22 14:53:45 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:57:02 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	initialize_map_values(t_map *map)
 	map->ex_c = 0;
 	map->col_c = 0;
 	map->pl_c = 0;
-	map->line_count = 0;
-	map->wnd_w = 1366;
-	map->wnd_h = 768;
+	map->wnd_w = TILE_SIZE * (map->line_length);
+	map->wnd_h = TILE_SIZE * map->line_count;
 	map->moves = 0;
 	map->col_col = 0;
 	map->n = 0;
@@ -29,8 +28,8 @@ void	initialize_map_values(t_map *map)
 
 void	map_sizing(t_map *map)
 {
-	map->tile_l = map->wnd_w / (map->line_length - 1);
-	map->tile_w = map->wnd_h / map->line_count;
+	map->tile_l = TILE_SIZE;
+	map->tile_w = TILE_SIZE;
 	if (map->tile_l <= map->tile_w)
 		map->tile_sq = map->tile_l;
 	else
@@ -63,8 +62,6 @@ int	count_lines(int fd, t_map *map, int bytes_read)
 			map->pl_c++;
 		if (buffer[0] == 'E')
 			map->ex_c++;
-		if (bytes_read > 0 && buffer[0] == '\n')
-			map->line_count++;
 		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
 			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
 		{
@@ -72,7 +69,6 @@ int	count_lines(int fd, t_map *map, int bytes_read)
 			exit(EXIT_FAILURE);
 		}
 	}
-	map->line_count++;
 	return (1);
 }
 
