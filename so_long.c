@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/25 19:59:54 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:28:41 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ int32_t	main(int argc, char **argv)
 	map->filename = argv[1];
 	map->img = img;
 	map_validation(map);
-	ft_printf("map->line_count: %d\n", map->line_count);
-	ft_printf("map->line_length: %d\n", map->line_length);
-	// CHECK LINE COUNT ARGUMENT
-	// ??????????????????????????
-	mlx = mlx_init(TILE_SIZE * (map->line_length - 1) \
+	mlx = mlx_init(TILE_SIZE * (map->line_length) \
 	, TILE_SIZE * map->line_count, "SO LONG", true);
 	map->mlx = mlx;
 	if (initialization(mlx, map, img) == EXIT_FAILURE)

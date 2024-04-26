@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:02 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/25 19:58:20 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:28:02 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	map_validation(t_map *map)
 {
 	int32_t	fd;
 	char	*line;
+	int		line_len;
 
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1)
@@ -24,8 +25,11 @@ void	map_validation(t_map *map)
 	while (line > 0)
 	{
 		map->line_count++;
+		line_len = ft_strlen(line);
+		if (line[line_len] == '\0')
+			line_len--;
 		if (map->line_length == 0)
-			map->line_length = ft_strlen(line);
+			map->line_length = line_len;
 		free(line);
 		line = get_next_line(fd);
 	}
