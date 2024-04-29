@@ -5,7 +5,7 @@ LIBMLX    := ./MLX42
 HEADERS    := -I ./include -I $(LIBMLX)/include
 LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
 SRCS    := so_long.c mapping.c map_validation.c player_movement.c \
-		route_validation.c utils.c hooks.c rendering.c mapping_utils.c
+		route_validation.c utils.c rendering.c mapping_utils.c
 LIBFT := ./libft/libft.a
 OBJS    := $(SRCS:.c=.o)
 

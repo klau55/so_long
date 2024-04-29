@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/26 15:28:41 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:04:34 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	initialization(mlx_t *mlx, t_map *map, t_img *img)
 	if (map->filename == NULL || \
 	ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
 	{
-		ft_printf("Error\n Check map entry\n");
-		return (EXIT_FAILURE);
+		exit_with_error(map, "Error\nCheck map entry\n");
 	}
 	initialize_map_values(map);
 	mapping(map);
@@ -52,7 +51,7 @@ int32_t	main(int argc, char **argv)
 	map = (t_map *)malloc(sizeof(t_map));
 	if (argc != 2)
 	{
-		puts("Error\nInvalid number of arguments");
+		ft_putstr_fd("Error\nInvalid number of arguments", 2);
 		return (end(map, img, NULL));
 	}
 	map->filename = argv[1];

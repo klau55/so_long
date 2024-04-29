@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:02 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/26 15:28:02 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:01:30 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	map_validation(t_map *map)
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1)
 		exit_with_error(map, "Error\nMap file not found");
+	else if (read(fd, NULL, 0) == -1)
+		exit_with_error(map, "Error\nMap file not readable");
 	line = get_next_line(fd);
 	while (line > 0)
 	{
