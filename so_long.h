@@ -6,21 +6,17 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:18:59 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/25 19:20:34 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:56:21 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdio.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <string.h>
 # include "libft/libft.h"
 
 # define WIDTH 1366

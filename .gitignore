@@ -7,7 +7,7 @@ DS_Store
 .vscode/tasks.json
 .vscode/settings.json
 libft/libft.a
-maps/invalid/
-maps/valid/
+ .vscode/
 .DS_Store
+so_long
 so_long
