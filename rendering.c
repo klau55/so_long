@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:03:53 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/24 18:56:32 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:58:39 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ void	preload_images(mlx_t *mlx, t_img *img, t_map *map)
 	img->txt_pl = mlx_load_png("assets/monky_right.png");
 	img->txt_pl_left = mlx_load_png("assets/monky_left.png");
 	img->txt_pl_collect = mlx_load_png("assets/anim1.png");
+	if (img->txt_free == NULL || img->txt_exit == NULL || \
+	img->txt_wall == NULL || img->txt_col == NULL || img->txt_pl == NULL \
+	|| img->txt_pl_left == NULL || img->txt_pl_collect == NULL)
+	{
+		exit_with_error(map, "Error\nFailed to load textures\n");
+	}
 	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
 	img->img_exit = mlx_texture_to_image(mlx, img->txt_exit);
 	img->img_wall = mlx_texture_to_image(mlx, img->txt_wall);
