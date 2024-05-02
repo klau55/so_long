@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:16:03 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/05 20:05:38 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:47:27 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	dealloc(t_glist **list, t_glist *clean_node, char *buf)
 	t_glist	*tmp;
 
 	if (*list == NULL)
-		return ; 
+		return ;
 	while (*list)
 	{
 		tmp = (*list)->next;

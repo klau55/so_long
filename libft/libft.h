@@ -27,7 +27,6 @@ typedef struct s_glist
 	struct s_glist	*next;
 }	t_glist;
 
-
 typedef struct s_list
 {
 	void			*content;
