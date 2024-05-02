@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:04:02 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/29 16:01:30 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:31:01 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	map_validation(t_map *map)
 		line_len = ft_strlen(line);
 		if (line[line_len] == '\0')
 			line_len--;
-		if (map->line_length == 0)
+		if (!map->line_length || map->line_length == 0)
 			map->line_length = line_len;
 		free(line);
 		line = get_next_line(fd);
