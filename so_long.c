@@ -6,7 +6,7 @@
 /*   By: nkarpilo <nkarpilo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:44:33 by nkarpilo          #+#    #+#             */
-/*   Updated: 2024/04/29 16:04:34 by nkarpilo         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:43:37 by nkarpilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ int	initialization(mlx_t *mlx, t_map *map, t_img *img)
 	return (0);
 }
 
-int	end(t_map *map, t_img *img, mlx_t *mlx)
+int	end(t_map *map, mlx_t *mlx)
 {
 	free_grid(map, map->grid);
-	free(map);
-	free(img);
 	if (mlx)
 		mlx_terminate(mlx);
 	return (1);
@@ -52,7 +50,7 @@ int32_t	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putstr_fd("Error\nInvalid number of arguments", 2);
-		return (end(map, img, NULL));
+		exit(end(map, NULL));
 	}
 	map->filename = argv[1];
 	map->img = img;
@@ -61,10 +59,10 @@ int32_t	main(int argc, char **argv)
 	, TILE_SIZE * map->line_count, "SO LONG", true);
 	map->mlx = mlx;
 	if (initialization(mlx, map, img) == EXIT_FAILURE)
-		return (end(map, img, mlx));
+		exit(end(map, mlx));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx_key_hook(mlx, move_hook, map);
 	mlx_loop(mlx);
-	end(map, img, mlx);
-	return (EXIT_SUCCESS);
+	end(map, mlx);
+	exit(EXIT_SUCCESS);
 }
